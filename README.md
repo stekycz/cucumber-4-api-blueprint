@@ -5,14 +5,16 @@
 
 ## Description
 
-Inspiration taken from [balanced-api](https://github.com/balanced/balanced-api) an updated for usage with API Blueprint.
+Inspired by [balanced-api](https://github.com/balanced/balanced-api) an updated for usage with API Blueprint.
+
+Currently you have to use parameter `-r` for [cucumber](https://www.npmjs.org/package/cucumber) to specify usage of step definitions. There will be auto loading in the future version.
 
 ### Feature examples
 ```gherkin
 Feature: User login
 
   Background:
-    Given API Blueprint in file "../api-definition.apib"
+    Given API Blueprint in file "../api-definition.apib" # Base URL is taken from HOST in the file
 
   Scenario: Login as exists user
     When I do action Users > User > Login user
@@ -33,6 +35,7 @@ Feature: Gist creation
 
   Background:
     Given API Blueprint in file "../api-definition.apib"
+    And base url http://localhost:8080
 
   Scenario: Correct creation
     Given I have valid access token
@@ -84,12 +87,11 @@ Feature: Gist creation
 
 ### Notes for implementation
 
-- different tool based on some basics in [dredd](https://github.com/apiaryio/dredd)
-- extension of basic cucumber (run in `/features` folder using `cucumber` command)
+- extension of basic [cucumber](https://www.npmjs.org/package/cucumber) (run in root folder using `cucumber.js` command)
 - blueprint AST contains default values of parameters, headers and bodies which can be rewritten by parameters from [cucumber](https://www.npmjs.org/package/cucumber) scenario
 - all step definitions must be able to handle basic HTTP language for scenario specification
 - some step definitions should use resource abstraction instead of HTTP language (preferred way)
-- the output will be output by cucumber enhanced for specific error cases (eg. comparison of headers, bodies or schema validation)
+- the output will be output by [cucumber](https://www.npmjs.org/package/cucumber) enhanced for specific error cases (eg. comparison of headers, bodies or schema validation)
 
 ## Author
 
