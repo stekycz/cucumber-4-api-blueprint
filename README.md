@@ -1,5 +1,7 @@
 # Cucumber 4 API Blueprint
 
+[![Build Status](https://travis-ci.org/stekycz/cucumber-4-api-blueprint.png?branch=master)](https://travis-ci.org/stekycz/cucumber-4-api-blueprint)
+
 - [Description](#description)
 - [Author](#author)
 
