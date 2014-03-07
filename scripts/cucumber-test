@@ -1,0 +1,7 @@
+#!/bin/sh
+cd $(dirname $0)/..
+./node_modules/.bin/coffee -b -c -o ./test/ ./test/server.coffee
+node ./test/server.js &
+PID=$!
+./node_modules/.bin/cucumber.js -r ./src/step-definitions.coffee
+kill -s TERM $PID

@@ -1,0 +1,5 @@
+#!/bin/sh
+cd $(dirname $0)/..
+./scripts/build
+./scripts/mocha 2>&1
+./scripts/cucumber-test
