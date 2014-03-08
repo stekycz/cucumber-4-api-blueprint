@@ -1,3 +1,4 @@
+require 'coffee-errors'
 {assert} = require 'chai'
 
 load = require '../../src/blueprint-loader'

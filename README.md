@@ -1,6 +1,9 @@
 # Cucumber 4 API Blueprint
 
 [![Build Status](https://travis-ci.org/stekycz/cucumber-4-api-blueprint.png?branch=master)](https://travis-ci.org/stekycz/cucumber-4-api-blueprint)
+[![Dependency Status](https://david-dm.org/stekycz/cucumber-4-api-blueprint.png)](https://david-dm.org/stekycz/cucumber-4-api-blueprint)
+[![devDependency Status](https://david-dm.org/stekycz/cucumber-4-api-blueprint/dev-status.png)](https://david-dm.org/stekycz/cucumber-4-api-blueprint#info=devDependencies)
+[![Coverage Status](https://coveralls.io/repos/stekycz/cucumber-4-api-blueprint/badge.png)](https://coveralls.io/r/stekycz/cucumber-4-api-blueprint)
 
 - [Description](#description)
 - [Author](#author)

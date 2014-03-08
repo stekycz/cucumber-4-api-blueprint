@@ -5,15 +5,19 @@
 		"test": "scripts/test"
 	},
 	"dependencies": {
-		"cucumber": "~0.3",
-		"protagonist": "~0.6",
+		"cucumber": "~0.4",
+		"protagonist": "~0.8",
 		"gavel": "~0.2"
 	},
 	"devDependencies": {
 		"coffee-script": "~1.6",
 		"coffee-errors": "~0.8",
+		"coffee-coverage": "~0.4",
+		"jscoverage": "~0.3",
+		"coveralls": "~2.8",
+		"mocha-lcov-reporter": "0.0.1",
 		"mocha": "~1.17",
-		"chai": "~1.8",
+		"chai": "~1.9",
 		"express": "~3.4"
 	},
 	"license": "MIT"

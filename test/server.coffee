@@ -1,3 +1,4 @@
+require 'coffee-errors'
 express = require 'express'
 
 PORT = '3333'
