@@ -25,3 +25,13 @@ describe 'load()', () ->
 
       it 'will call error callback', () ->
         load __dirname + '/../fixtures/error-blueprint.apib', success, error
+
+    describe 'invalid path', () ->
+      success = (ast) ->
+        assert.fail ast, null, 'should not be called'
+      error = (msg) ->
+        assert.isObject msg
+        assert.include Object.keys(msg), 'code'
+
+      it 'will call error callback', () ->
+        load __dirname + '/../fixtures/not-exists.apib', success, error

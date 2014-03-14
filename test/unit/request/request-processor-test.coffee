@@ -11,6 +11,8 @@ describe 'RequestProcessor', () ->
     request = new RequestBuilder 'localhost', '3334'
     request.setMethod 'GET'
     request.setUriTemplate '/api/v1/gists'
+    request.setHeader 'Content-Type', 'application/json'
+    request.setBody '{}'
     instance = new RequestProcessor request
 
   describe 'constructor', () ->
