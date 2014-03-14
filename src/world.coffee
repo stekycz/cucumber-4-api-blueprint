@@ -15,9 +15,6 @@ class World
       headers: {}
       body: '{}'
     @response = null
-    @contentTypes =
-      JSON: 'application/json'
-      XML: 'application/xml'
     callback()
 
   reset: () ->

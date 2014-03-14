@@ -1,6 +1,7 @@
 World = require './world'
 RequestBuilder = require './request/request-builder'
 BlueprintLoader = require './blueprint-loader'
+contentTypeTranslate = require './content-type-translator'
 url = require 'url'
 
 class ApiBlueprintStepDefinitionsWrapper
@@ -47,8 +48,7 @@ class ApiBlueprintStepDefinitionsWrapper
 
     this.When /^the request message body is(?: (\w+))?$/, (contentType, body, callback) ->
       @reset()
-      contentType = @contentTypes[contentType] if @contentTypes[contentType]?
-      @request.setHeader 'content-type', contentType
+      @request.setHeader 'content-type', contentTypeTranslate(contentType)
       @request.setBody body
       callback()
 
@@ -64,8 +64,7 @@ class ApiBlueprintStepDefinitionsWrapper
         callback.fail msg
 
     this.Then /^the response message body is(?: (\w+))?$/, (contentType, body, callback) ->
-      contentType = this.contentTypes[contentType] if this.contentTypes[contentType]?
-      this.expectedResponse.headers['content-type'] = contentType
+      this.expectedResponse.headers['content-type'] = contentTypeTranslate(contentType)
       this.expectedResponse.body = body
       self = this
       @processRequest () ->

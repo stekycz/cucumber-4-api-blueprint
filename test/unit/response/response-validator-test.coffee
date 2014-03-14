@@ -13,10 +13,10 @@ describe 'ResponseValidator', () ->
   describe 'validate', () ->
     it 'should call success callback on valid response', () ->
       real =
-        statusCode: 200,
+        statusCode: 200
         body: '{ status: "ok" }'
       expected =
-        statusCode: 200,
+        statusCode: 200
         body: '{ status: "ok" }'
       instance = new ResponseValidator real, expected
       instance.validate () ->
@@ -26,10 +26,10 @@ describe 'ResponseValidator', () ->
 
     it 'should call error callback on invalid response', () ->
       real =
-        statusCode: 404,
+        statusCode: 404
         body: ''
       expected =
-        statusCode: 200,
+        statusCode: 200
         body: '{ status: "ok" }'
       instance = new ResponseValidator real, expected
       instance.validate () ->
