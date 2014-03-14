@@ -3,12 +3,8 @@ ResponseValidator = require './response/response-validator'
 
 class World
   constructor: (callback) ->
-    @ast = null
+    @actionFinder = null
     @baseUrl = null
-    @structure =
-      group: null
-      resource: null
-      action: null
     @request = null
     @expectedResponse =
       statusCode: undefined
