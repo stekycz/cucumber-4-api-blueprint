@@ -17,19 +17,27 @@ class ApiBlueprintStepDefinitionsWrapper
       @reset()
       @setAction action, callback, callback.fail
 
-    this.When /^the request message body is(?: (\w+))?$/, (contentType, body, callback) ->
+    this.When /^the request message header ([\w-]+) is (.*)$/, (header, value, callback) ->
+      @reset()
+      @getRequest().setHeader header, value
+      callback()
+
+    this.When /^the request message body is(?: ([\w-]+))?$/, (contentType, body, callback) ->
       @reset()
       @getRequest().setHeader 'Content-Type', contentTypeTranslate(contentType)
       @getRequest().setBody body
-
       callback()
 
-    this.Then /It should be ([^()]+)(?: \((\d+)\))?$/, (name, code, callback) ->
+    this.Then /^It should be ([^()]+)(?: \((\d+)\))?$/, (name, code, callback) ->
       code = statusCodeTranslate name if !code
       @expectedResponse.setStatusCode code ? parseInt(code)
       @processRequest callback, callback.fail
 
-    this.Then /^the response message body is(?: (\w+))?$/, (contentType, body, callback) ->
+    this.Then /^the response message header ([\w-]+) is (.*)$/, (header, value, callback) ->
+      @expectedResponse.setHeader header, value
+      @processRequest callback, callback.fail
+
+    this.Then /^the response message body is(?: ([\w-]+))?$/, (contentType, body, callback) ->
       @expectedResponse.setHeader 'Content-Type', contentTypeTranslate(contentType)
       @expectedResponse.setBody body
       @processRequest callback, callback.fail

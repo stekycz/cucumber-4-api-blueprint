@@ -9,6 +9,7 @@ Feature: Machines collection
 
     Scenario: Create a Machine
         When I do action Machines > Machines collection > Create a Machine
+        And the request message header Accept is application/json
         And the request message body is JSON
         """
         {
@@ -17,6 +18,7 @@ Feature: Machines collection
         }
         """
         Then It should be Accepted (202)
+        And the response message header Content-Encoding is none
         And the response message body is JSON
         """
         {
@@ -26,7 +28,9 @@ Feature: Machines collection
 
     Scenario: Retrieve all Machines
         When I do action Machines > Machines collection > Retrieve all Machines
+        And the request message header Accept is application/json
         Then It should be Ok
+        And the response message header Content-Encoding is none
         And the response message body is JSON
         """
         [{
