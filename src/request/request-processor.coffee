@@ -1,5 +1,4 @@
 http = require 'http'
-https = require 'https'
 
 class RequestProcessor
   constructor: (@request) ->

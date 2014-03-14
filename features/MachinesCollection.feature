@@ -26,7 +26,7 @@ Feature: Machines collection
 
     Scenario: Retrieve all Machines
         When I do action Machines > Machines collection > Retrieve all Machines
-        Then It should be Ok (200)
+        Then It should be Ok
         And the response message body is JSON
         """
         [{

@@ -1,5 +1,6 @@
 World = require './world'
 contentTypeTranslate = require './content-type-translator'
+statusCodeTranslate = require './status-code-translator'
 
 class ApiBlueprintStepDefinitionsWrapper
   constructor: () ->
@@ -18,13 +19,14 @@ class ApiBlueprintStepDefinitionsWrapper
 
     this.When /^the request message body is(?: (\w+))?$/, (contentType, body, callback) ->
       @reset()
-      @getRequest().setHeader 'content-type', contentTypeTranslate(contentType)
+      @getRequest().setHeader 'Content-Type', contentTypeTranslate(contentType)
       @getRequest().setBody body
 
       callback()
 
     this.Then /It should be ([^()]+)(?: \((\d+)\))?$/, (name, code, callback) ->
-      @expectedResponse.setStatusCode parseInt(code)
+      code = statusCodeTranslate name if !code
+      @expectedResponse.setStatusCode code ? parseInt(code)
       @processRequest callback, callback.fail
 
     this.Then /^the response message body is(?: (\w+))?$/, (contentType, body, callback) ->

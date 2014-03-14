@@ -4,7 +4,7 @@ contentTypes =
 
 translate = (type) ->
   key = type.toLowerCase()
-  type = contentTypes[key] if contentTypes[key]?
+  return contentTypes[key] if contentTypes[key]?
   return type
 
 module.exports = translate
