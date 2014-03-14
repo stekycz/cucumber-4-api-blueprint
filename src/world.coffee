@@ -1,6 +1,5 @@
-gavel = require 'gavel'
-http = require 'http'
-https = require 'https'
+RequestProcessor = require './request-processor'
+ResponseValidator = require './response-validator'
 
 class World
   constructor: (callback) ->
@@ -10,10 +9,7 @@ class World
       group: null
       resource: null
       action: null
-    @request =
-      headers: {}
-      body: ''
-      parameters: {}
+    @request = null
     @expectedResponse =
       statusCode: undefined
       headers: {}
@@ -30,59 +26,17 @@ class World
   processRequest: (callback, errorCallback) ->
     return callback() if @response?
 
-    flatHeaders = @request.headers
+    processor = new RequestProcessor @request
 
-    caseInsensitiveMap = {}
-    for key, value of flatHeaders
-      caseInsensitiveMap[key.toLowerCase()] = key
-
-    if caseInsensitiveMap['content-length'] == undefined and @request.body != ''
-      flatHeaders['Content-Length'] = @request.body.length
-
-    options =
-      host: @baseUrl['hostname']
-      port: @baseUrl['port']
-      path: @structure.resource.uriTemplate
-      method: @structure.action.method
-      headers: flatHeaders
-
-    buffer = ''
     self = this
-
-    handleRequest = (res) ->
-      res.on 'data', (chunk) ->
-        buffer = buffer + chunk
-
-      req.on 'error', (error) ->
-        errorCallback error if error
-
-      res.on 'end', () ->
-        self.response =
-          headers: res.headers
-          body: buffer
-          statusCode: res.statusCode
-        callback()
-
-    req = http.request options, handleRequest
-
-    req.write self.request.body if self.request.body != ''
-    req.end()
+    processor.process (response) ->
+      self.response = response
+      callback()
+    , (error) ->
+      errorCallback error
 
   validate: (callback, errorCallback) ->
-    real = @response
-    expected = @expectedResponse
-    gavel.isValid real, expected, 'response', (error, isValid) ->
-      errorCallback error if error
-
-      if isValid
-        return callback()
-      else
-        gavel.validate real, expected, 'response', (error, result) ->
-          errorCallback error if error
-          message = ''
-          for entity, data of result
-            for entityResult in data['results']
-              message += entity + ": " + entityResult['message'] + "\n"
-          return errorCallback message
+    validator = new ResponseValidator @response, @expectedResponse
+    validator.validate callback, errorCallback
 
 module.exports = World

@@ -1,4 +1,5 @@
 World = require './world'
+RequestBuilder = require './request-builder'
 BlueprintLoader = require './blueprint-loader'
 url = require 'url'
 
@@ -38,13 +39,17 @@ class ApiBlueprintStepDefinitionsWrapper
       callback.fail 'Action "' + structure[2] + '" was not found' if filteredActions.length < 1
       @structure.action = filteredActions[0]
 
+      @request = new RequestBuilder @baseUrl['hostname'], @baseUrl['port']
+      @request.setMethod @structure.action.method
+      @request.setUriTemplate @structure.resource.uriTemplate
+
       callback()
 
     this.When /^the request message body is(?: (\w+))?$/, (contentType, body, callback) ->
       @reset()
       contentType = @contentTypes[contentType] if @contentTypes[contentType]?
-      @request.headers['content-type'] = contentType
-      @request.body = body
+      @request.setHeader 'content-type', contentType
+      @request.setBody body
       callback()
 
     this.Then /It should be ([^()]+)(?: \((\d+)\))?$/, (name, code, callback) ->
