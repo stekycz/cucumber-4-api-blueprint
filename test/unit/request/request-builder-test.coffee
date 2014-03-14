@@ -1,7 +1,7 @@
 require 'coffee-errors'
 {assert} = require 'chai'
 
-RequestBuilder = require '../../src/request-builder'
+RequestBuilder = require '../../../src/request/request-builder'
 
 describe 'RequestBuilder', () ->
   instance = null

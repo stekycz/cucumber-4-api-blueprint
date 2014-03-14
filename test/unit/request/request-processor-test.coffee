@@ -2,8 +2,8 @@ require 'coffee-errors'
 {assert} = require 'chai'
 nock = require 'nock'
 
-RequestBuilder = require '../../src/request-builder'
-RequestProcessor = require '../../src/request-processor'
+RequestBuilder = require '../../../src/request/request-builder'
+RequestProcessor = require '../../../src/request/request-processor'
 
 describe 'RequestProcessor', () ->
   instance = null

@@ -1,5 +1,5 @@
 World = require './world'
-RequestBuilder = require './request-builder'
+RequestBuilder = require './request/request-builder'
 BlueprintLoader = require './blueprint-loader'
 url = require 'url'
 

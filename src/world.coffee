@@ -1,5 +1,5 @@
-RequestProcessor = require './request-processor'
-ResponseValidator = require './response-validator'
+RequestProcessor = require './request/request-processor'
+ResponseValidator = require './response/response-validator'
 
 class World
   constructor: (callback) ->

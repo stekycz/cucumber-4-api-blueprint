@@ -1,7 +1,7 @@
 require 'coffee-errors'
 {assert} = require 'chai'
 
-ResponseValidator = require '../../src/response-validator'
+ResponseValidator = require '../../../src/response/response-validator'
 
 describe 'ResponseValidator', () ->
   describe 'constructor', () ->
