@@ -1,35 +1,66 @@
+RequestBuilder = require './request/request-builder'
 RequestProcessor = require './request/request-processor'
+ResponseBuilder = require './response/response-builder'
 ResponseValidator = require './response/response-validator'
+BlueprintActionFinder = require './blueprint-action-finder'
+load = require './blueprint-loader'
+url = require 'url'
 
 class World
   constructor: (callback) ->
     @actionFinder = null
     @baseUrl = null
+    @structure = null
     @request = null
-    @expectedResponse =
-      statusCode: undefined
-      headers: {}
-      body: '{}'
-    @response = null
+    @reset()
     callback()
 
   reset: () ->
+    @expectedResponse = new ResponseBuilder
     @response = null
 
+  getRequest: () ->
+    if !@request? and !@response?
+      @request = new RequestBuilder @baseUrl['hostname'], @baseUrl['port']
+    return @request
+
   processRequest: (callback, errorCallback) ->
-    return callback() if @response?
+    if @response?
+      return @validate callback, errorCallback
 
     processor = new RequestProcessor @request
 
     self = this
     processor.process (response) ->
       self.response = response
-      callback()
+      self.validate callback, errorCallback
     , (error) ->
       errorCallback error
 
   validate: (callback, errorCallback) ->
-    validator = new ResponseValidator @response, @expectedResponse
+    validator = new ResponseValidator @response, @expectedResponse.toResponseObject()
     validator.validate callback, errorCallback
+
+  createActionFinder: (filepath, success, errorCallback) ->
+    self = this
+    load filepath, (ast) ->
+      self.actionFinder = new BlueprintActionFinder ast
+      success()
+    , (error) ->
+      errorCallback error
+
+  setBaseUrl: (baseUrl) ->
+    @baseUrl = url.parse baseUrl
+
+  setAction: (action, success, errorCallback) ->
+    try
+      @structure = @actionFinder.find action
+    catch error
+      errorCallback error
+
+    @getRequest().setMethod @structure.action.method
+    @getRequest().setUriTemplate @structure.resource.uriTemplate
+
+    success()
 
 module.exports = World

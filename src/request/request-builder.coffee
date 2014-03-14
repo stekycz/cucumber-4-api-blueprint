@@ -21,6 +21,4 @@ class RequestBuilder
   setParameter: (name, value) ->
     @parameters[name] = value
 
-
-
 module.exports = RequestBuilder
