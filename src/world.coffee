@@ -25,8 +25,7 @@ class World
     return @request
 
   processRequest: (callback, errorCallback) ->
-    if @response?
-      return @validate callback, errorCallback
+    return @validate callback, errorCallback if @response?
 
     processor = new RequestProcessor @request
 
@@ -44,6 +43,7 @@ class World
   createActionFinder: (filepath, success, errorCallback) ->
     self = this
     load filepath, (ast) ->
+      self.setBaseUrl ast.metadata.HOST.value if !@baseUrl? and ast.metadata?.HOST?.value?
       self.actionFinder = new BlueprintActionFinder ast
       success()
     , (error) ->
