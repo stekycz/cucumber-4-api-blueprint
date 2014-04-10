@@ -6,7 +6,7 @@
 	},
 	"dependencies": {
 		"cucumber": "~0.4",
-		"protagonist": "~0.8",
+		"protagonist": "~0.10",
 		"gavel": "~0.2"
 	},
 	"devDependencies": {
@@ -14,11 +14,11 @@
 		"coffee-errors": "~0.8",
 		"coffee-coverage": "~0.4",
 		"jscoverage": "~0.3",
-		"coveralls": "~2.8",
+		"coveralls": "~2.10",
 		"mocha-lcov-reporter": "0.0.1",
-		"mocha": "~1.17",
+		"mocha": "~1.18",
 		"chai": "~1.9",
-		"express": "~3.4",
+		"express": "~4.0",
 		"nock": "~0.27"
 	},
 	"license": "MIT"
