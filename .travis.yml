@@ -4,3 +4,9 @@ node_js:
   - 0.10
 after_success:
   - ./scripts/coveralls
+notifications:
+  email:
+    recipients:
+      - martin.stekl@gmail.com
+    on_success: change
+    on_failure: always
