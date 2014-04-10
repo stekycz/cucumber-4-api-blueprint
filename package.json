@@ -7,7 +7,8 @@
 	"dependencies": {
 		"cucumber": "~0.4",
 		"protagonist": "~0.8",
-		"gavel": "~0.2"
+		"gavel": "~0.2",
+		"dredd": "~0.3"
 	},
 	"devDependencies": {
 		"coffee-script": "~1.7",

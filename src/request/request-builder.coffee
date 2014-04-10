@@ -1,5 +1,5 @@
 class RequestBuilder
-  constructor: (@host, @port) ->
+  constructor: (@host, @port, @path) ->
     @method = null
     @uriTemplate = null
     @setBody ''
@@ -10,7 +10,7 @@ class RequestBuilder
     @method = method
 
   setUriTemplate: (uriTemplate) ->
-    @uriTemplate = uriTemplate
+    @uriTemplate = @path + uriTemplate
 
   setBody: (body) ->
     @body = body

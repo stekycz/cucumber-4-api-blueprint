@@ -21,7 +21,10 @@ class World
 
   getRequest: () ->
     if !@request? and !@response?
-      @request = new RequestBuilder @baseUrl['hostname'], @baseUrl['port']
+      fullPath = ''
+      if @baseUrl['path'] is not '/'
+        fullPath = '/' + @baseUrl['path'].replace(/^\/|\/$/g, '')
+      @request = new RequestBuilder @baseUrl['hostname'], @baseUrl['port'], fullPath
     return @request
 
   processRequest: (callback, errorCallback) ->
@@ -60,6 +63,12 @@ class World
 
     @getRequest().setMethod @structure.action.method
     @getRequest().setUriTemplate @structure.resource.uriTemplate
+
+    if @structure.action.examples? and @structure.action.examples.length > 0 and @structure.action.examples[0].requests? and @structure.action.examples[0].requests.length > 0
+      request = @structure.action.examples[0].requests[0]
+      @getRequest().setBody request.body if request.body?
+      for key in Object.keys(request.headers)
+        @getRequest().setHeader key, request.headers[key].value if request.headers[key].value?
 
     success()
 
