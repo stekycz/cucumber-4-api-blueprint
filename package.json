@@ -6,7 +6,7 @@
 	},
 	"dependencies": {
 		"cucumber": "~0.4",
-		"protagonist": "~0.10",
+		"protagonist": "~0.11",
 		"gavel": "~0.2"
 	},
 	"devDependencies": {
@@ -18,8 +18,8 @@
 		"mocha-lcov-reporter": "0.0.1",
 		"mocha": "~1.18",
 		"chai": "~1.9",
-		"express": "~4.0",
-		"nock": "~0.27"
+		"express": "~4.1",
+		"nock": "~0.28"
 	},
 	"license": "MIT"
 }
